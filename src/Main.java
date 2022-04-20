@@ -5,13 +5,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         StepTracker stepTracker = new StepTracker();
 
-        Integer choice = 1;
-
-        while (choice != 0) {
+        while (true) {
             printMenu();
-            choice = scanner.nextInt();
+            switch(scanner.nextInt()) {
 
-            if (choice == 1) {
+            case (1):
                 System.out.println("Введите порядковый номер месяца, где 1 - Январь, а 12 - Декабрь:");
                 Integer mounth = scanner.nextInt();
                 while (mounth < 1 || mounth > 12) {
@@ -46,9 +44,10 @@ public class Main {
                 }
 
                 stepTracker.addStepInMounth(mounth, numOfDay, stepsCount);
-            } else if (choice == 2) {
+                break;
+            case (2):
                 System.out.println("Введите порядковый номер месяца за который хотите получить статистику, где 1 - Январь, а 12 - Декабрь:");
-                Integer mounth = scanner.nextInt();
+                mounth = scanner.nextInt();
                 while (mounth < 1 || mounth > 12) {
                     System.out.println("Вы ввели не корректный номер месяца, попробуйте ещё раз или введите '0' для выхода:");
                     mounth = scanner.nextInt();
@@ -59,7 +58,8 @@ public class Main {
                 }
 
                 stepTracker.printStatistics(mounth);
-            } else if (choice == 3) {
+                break;
+            case (3):
                 System.out.println("Введите новый лимит шагов в день:");
                 Integer newStepControl = scanner.nextInt();
                 while (newStepControl < 0) {
@@ -72,16 +72,18 @@ public class Main {
                 }
 
                 stepTracker.addStepInMounth(newStepControl);
-            } else if (choice == 0) {
-                System.out.println("Программа завершена");
                 break;
-            } else {
+            case (0):
+                System.out.println("Программа завершена");
+                return;
+            default :
                 System.out.println("Вы ввели не верное число, попробуйте снова:");
+                break;
             }
         }
     }
 
-    public static void printMenu() {
+    private static void printMenu() {
         System.out.println("1 - Ввести количество шагов за определённый день");
         System.out.println("2 - Напечатать статистику за определённый месяц");
         System.out.println("3 - Изменить цель по количеству шагов в день");

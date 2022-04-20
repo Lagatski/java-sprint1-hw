@@ -1,26 +1,22 @@
 import java.util.HashMap;
 
 public class StepTracker {
-    HashMap<Integer, int[]> stepsByMounth;
-    Converter converter;
-    Integer stepLimit;
-    StepTracker() {
+    private static HashMap<Integer, int[]> stepsByMounth;
+    private static Converter converter;
+    private static Integer stepLimit;
+    public StepTracker() {
         converter = new Converter();
         stepsByMounth = new HashMap<>();
 
         for (int i = 1; i <= 12; i++) {
             int[] stepsInDay = new int[31];
-
-            for (int j = 0; j < 31; j++) {
-                stepsInDay[j] = 0;
-            }
             stepsByMounth.put(i, stepsInDay);
         }
 
         stepLimit = 10000;
     }
 
-    void addStepInMounth(Integer mounth, Integer numOfDay, Integer stepsCount) {
+    public static void addStepInMounth(Integer mounth, Integer numOfDay, Integer stepsCount) {
         int[] steps = stepsByMounth.get(mounth);
 
         steps[numOfDay] += stepsCount;
@@ -28,18 +24,18 @@ public class StepTracker {
         stepsByMounth.put(mounth, steps);
     }
 
-    void addStepInMounth(Integer newStepLimit) {
+    public static void addStepInMounth(Integer newStepLimit) {
         stepLimit = newStepLimit;
 
-        System.out.println("Новый лимит шагов: " + stepLimit + " в день ");
+        System.out.println("Новая цель по шагам в день: " + stepLimit);
     }
 
-    void printStatistics(Integer mounth) {
+    public static void printStatistics(Integer mounth) {
         int[] steps = stepsByMounth.get(mounth);
         int sum = 0;
         int max = 0;
         int bestSeries = 0;
-        int count = 1;
+        int count = 0;
 
         for (int i = 1; i <= 30; i++) {
             System.out.print(i + " день: " + steps[i]);
@@ -49,13 +45,14 @@ public class StepTracker {
                 System.out.print("\n");
             if (steps[i] > max)
                 max = steps[i];
-            if (i > 1 && i <= 30 && steps[i] >= stepLimit && steps[i - 1] >= stepLimit) {
+
+            if (steps[i] >= stepLimit) {
                 count += 1;
-            } else if (count > 1 && count > bestSeries) {
+            } else if (count > bestSeries) {
                 bestSeries = count;
-                count = 1;
+                count = 0;
             }
-            if (i == 30 && count > 1) {
+            if (i == 30 && count > 0 && count > bestSeries) {
                 bestSeries = count;
             }
             sum += steps[i];
