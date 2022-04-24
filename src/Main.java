@@ -11,11 +11,11 @@ public class Main {
 
             case (1):
                 System.out.println("Введите порядковый номер месяца, где 1 - Январь, а 12 - Декабрь:");
-                Integer mounth = scanner.nextInt();
-                while (mounth < 1 || mounth > 12) {
+                Integer month = scanner.nextInt();
+                while (month < 1 || month > 12) {
                     System.out.println("Вы ввели не корректный номер месяца, попробуйте ещё раз или введите '0' для выхода:");
-                    mounth = scanner.nextInt();
-                    if (mounth == 0) {
+                    month = scanner.nextInt();
+                    if (month == 0) {
                         System.out.println("Выход из программы");
                         return;
                     }
@@ -43,22 +43,24 @@ public class Main {
                     }
                 }
 
-                stepTracker.addStepInMounth(mounth, numOfDay, stepsCount);
+                stepTracker.addStepInMonth(month, numOfDay, stepsCount);
                 break;
+                
             case (2):
                 System.out.println("Введите порядковый номер месяца за который хотите получить статистику, где 1 - Январь, а 12 - Декабрь:");
-                mounth = scanner.nextInt();
-                while (mounth < 1 || mounth > 12) {
+                month = scanner.nextInt();
+                while (month < 1 || month > 12) {
                     System.out.println("Вы ввели не корректный номер месяца, попробуйте ещё раз или введите '0' для выхода:");
-                    mounth = scanner.nextInt();
-                    if (mounth == 0) {
+                    month = scanner.nextInt();
+                    if (month == 0) {
                         System.out.println("Выход из программы");
                         return;
                     }
                 }
 
-                stepTracker.printStatistics(mounth);
+                stepTracker.printStatistics(month);
                 break;
+
             case (3):
                 System.out.println("Введите новый лимит шагов в день:");
                 Integer newStepControl = scanner.nextInt();
@@ -71,11 +73,13 @@ public class Main {
                     }
                 }
 
-                stepTracker.addStepInMounth(newStepControl);
+                stepTracker.addStepInMonth(newStepControl);
                 break;
+
             case (0):
                 System.out.println("Программа завершена");
                 return;
+
             default :
                 System.out.println("Вы ввели не верное число, попробуйте снова:");
                 break;

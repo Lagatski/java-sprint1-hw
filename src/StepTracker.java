@@ -1,37 +1,37 @@
 import java.util.HashMap;
 
 public class StepTracker {
-    private static HashMap<Integer, int[]> stepsByMounth;
+    private static HashMap<Integer, int[]> stepsByMonth;
     private static Converter converter;
     private static Integer stepLimit;
     public StepTracker() {
         converter = new Converter();
-        stepsByMounth = new HashMap<>();
+        stepsByMonth = new HashMap<>();
 
         for (int i = 1; i <= 12; i++) {
             int[] stepsInDay = new int[31];
-            stepsByMounth.put(i, stepsInDay);
+            stepsByMonth.put(i, stepsInDay);
         }
 
         stepLimit = 10000;
     }
 
-    public static void addStepInMounth(Integer mounth, Integer numOfDay, Integer stepsCount) {
-        int[] steps = stepsByMounth.get(mounth);
+    public void addStepInMonth(Integer month, Integer numOfDay, Integer stepsCount) {
+        int[] steps = stepsByMonth.get(month);
 
         steps[numOfDay] += stepsCount;
 
-        stepsByMounth.put(mounth, steps);
+        stepsByMonth.put(month, steps);
     }
 
-    public static void addStepInMounth(Integer newStepLimit) {
+    public void addStepInMonth(Integer newStepLimit) {
         stepLimit = newStepLimit;
 
         System.out.println("Новая цель по шагам в день: " + stepLimit);
     }
 
-    public static void printStatistics(Integer mounth) {
-        int[] steps = stepsByMounth.get(mounth);
+    public void printStatistics(Integer month) {
+        int[] steps = stepsByMonth.get(month);
         int sum = 0;
         int max = 0;
         int bestSeries = 0;
@@ -61,7 +61,7 @@ public class StepTracker {
         System.out.println("Общее количество шагов за месяц: " + sum);
         System.out.println("Максимальное пройденное количество шагов в месяце: " + max);
         System.out.println("Среднее количество шагов за день: " + (sum / 30));
-        System.out.println("Пройденная дистанция (в км): " + converter.countDistanceInKilometrs(sum));
+        System.out.println("Пройденная дистанция (в км): " + converter.countDistanceInKilometers(sum));
         System.out.println("Количество сожжённых килокалорий: " + converter.countCcal(sum));
         System.out.println("Лучшая серия: " + bestSeries);
     }
